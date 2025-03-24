@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>maintenance-qeshmnumber</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body,
+      html {
+        height: 100%;
+        overflow: hidden;
+        font-family: "Vazir", Arial, sans-serif;
+      }
+      .header {
+        background-color: rgba(20, 20, 20, 0.8); /* رنگ پس‌زمینه تیره‌تر */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* سایه باکس */
+      }
+      .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: white;
+        text-align: center;
+      }
+      h1 {
+        color: #ffcc00;
+        padding: 5px 0 5px 0;
+      }
+      h4 {
+        padding-top: 0;
+        margin-top: -30px;
+      }
+      a {
+        text-decoration: none;
+        color: #ffcc00;
+      }
+      a:hover {
+        color: white;
+        text-decoration: underline;
+      }
+      .countdown {
+        display: flex; /* قرار دادن شمارنده‌ها در یک ردیف */
+        justify-content: center;
+        background-color: rgba(20, 20, 20, 0.8); /* رنگ پس‌زمینه تیره‌تر */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* سایه باکس */
+        margin: 20px 0;
+      }
+      .countdown-item {
+        margin: 0 10px;
+        text-align: center;
+        background: rgba(40, 40, 40, 1); /* رنگ پس‌زمینه تیره‌تر برای هر بخش */
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 80px; /* عرض ثابت برای باکس */
+        height: 100px; /* ارتفاع ثابت برای باکس */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: transform 0.3s;
+      }
+      .countdown-item:hover {
+        transform: scale(1.05); /* بزرگ شدن باکس به هنگام هاور */
+      }
+      .countdown-item h2 {
+        font-size: 24px;
+        margin-bottom: 5px;
+        color: #ffcc00; /* رنگ زیبا برای عناوین */
+      }
+      .countdown-item p {
+        font-size: 36px;
+        color: white; /* رنگ متن */
+      }
+      .contact-info,
+      .social-icons {
+        background-color: rgba(0, 0, 0, 0.7); /* پس‌زمینه نیمه‌شفاف */
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px 0;
+        width: 80%; /* عرض باکس */
+      }
+      .social-icons img {
+        width: 30px;
+        margin: 0 10px;
+      }
+      footer {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        height: 100;
+        text-align: center;
+        font-size: 14px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background">
+      <video autoplay muted loop>
+        <source src="/img/video-bg.mp4" type="video/mp4" />
+        مرورگر شما ویدیو را پشتیبانی نمی‌کند
+      </video>
+    </div>
+    <div class="container">
+      <div class="header">
+        <h1>Qeshm Number</h1>
+        <br />
+        <h4>QeshmNumber.ir</h4>
+      </div>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <h2>روز</h2>
+          <p id="days">0</p>
+        </div>
+        <div class="countdown-item">
+          <h2>ساعت</h2>
+          <p id="hours">0</p>
+        </div>
+        <div class="countdown-item">
+          <h2>دقیقه</h2>
+          <p id="minutes">0</p>
+        </div>
+        <div class="countdown-item">
+          <h2>ثانیه</h2>
+          <p id="seconds">0</p>
+        </div>
+      </div>
+      <div class="contact-info">
+        <p>Tyazdaniit@gmail.com : ایمیل پشتیبانی</p>
+        <br />
+        <p>تماس با پشتیبانی: 09368170917</p>
+      </div>
+
+      <div class="social-icons">
+        <a href="mailto:tyazdaniit@gmail.com"
+          ><img
+            src="https://img.icons8.com/?size=100&id=X0mEIh0RyDdL&format=png&color=000000"
+            alt="ایمیل"
+        /></a>
+        <a href="https://wa.me/+989368170917"
+          ><img
+            src="https://img.icons8.com/?size=100&id=bbCdIvHZ3OjJ&format=png&color=000000"
+        /></a>
+      </div>
+    </div>
+    <footer class="background-footer">
+      &copy; QeshmNumber - Design
+      <a href="https://tahayazdani.ir" class="no-underline hover:underline"
+        >Taha Yazdani</a
+      >
+    </footer>
+
+    <script>
+      // شمارنده معکوس
+      function updateCountdown() {
+        const targetDate = new Date("2025-06-01T00:00:00").getTime();
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+
+        if (distance < 0) {
+          clearInterval(interval);
+          document.getElementById("countdown").innerHTML =
+            "<h2>زمان تمام شد</h2>";
+        }
+      }
+
+      const interval = setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
