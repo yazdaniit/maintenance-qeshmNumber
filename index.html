@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>maintenance-qeshmnumber</title>
+    <title>Qeshm Number - در حال به روزرسانی</title>
     <style>
+      /* Reset و تنظیمات پایه */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
+
       body,
       html {
         height: 100%;
-        overflow: hidden;
-        font-family: "Vazir", Arial, sans-serif;
+        overflow: hidden; /* حذف اسکرول */
+        font-family: "Vazir", Tahoma, Arial, sans-serif;
       }
-      .header {
-        background-color: rgba(20, 20, 20, 0.8); /* رنگ پس‌زمینه تیره‌تر */
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* سایه باکس */
-      }
+
+      /* استایل‌های پس‌زمینه */
       .background {
         position: fixed;
         top: 0;
@@ -31,178 +29,468 @@
         z-index: -1;
         overflow: hidden;
       }
-      video {
+
+      .background-video {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        filter: brightness(0.8);
       }
+
+      .background-image {
+        display: none;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.7);
+      }
+
+      /* محتوای اصلی - بهینه شده */
       .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100%;
+        height: 100vh; /* ارتفاع کامل بدون اسکرول */
         color: white;
         text-align: center;
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden; /* جلوگیری از اسکرول داخلی */
       }
+
+      .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 800px;
+        gap: 15px; /* فاصله یکنواخت بین المان‌ها */
+      }
+
+      .header {
+        background-color: rgba(20, 20, 20, 0.85);
+        padding: 20px 25px;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+        max-width: 600px;
+        width: 90%;
+      }
+
       h1 {
         color: #ffcc00;
-        padding: 5px 0 5px 0;
+        font-size: 2.2rem;
+        margin-bottom: 10px;
       }
+
       h4 {
-        padding-top: 0;
-        margin-top: -30px;
+        font-size: 1.2rem;
+        color: #e0e0e0;
       }
-      a {
-        text-decoration: none;
-        color: #ffcc00;
-      }
-      a:hover {
-        color: white;
-        text-decoration: underline;
-      }
+
+      /* شمارنده معکوس */
       .countdown {
-        display: flex; /* قرار دادن شمارنده‌ها در یک ردیف */
+        display: flex;
         justify-content: center;
-        background-color: rgba(20, 20, 20, 0.8); /* رنگ پس‌زمینه تیره‌تر */
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* سایه باکس */
-        margin: 20px 0;
+        background-color: rgba(20, 20, 20, 0.85);
+        padding: 20px 15px;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+        max-width: 600px;
+        width: 90%;
+        flex-wrap: wrap;
       }
+
       .countdown-item {
         margin: 0 10px;
         text-align: center;
-        background: rgba(40, 40, 40, 1); /* رنگ پس‌زمینه تیره‌تر برای هر بخش */
+        background: rgba(40, 40, 40, 0.95);
         border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        width: 80px; /* عرض ثابت برای باکس */
-        height: 100px; /* ارتفاع ثابت برای باکس */
+        padding: 15px 10px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+        width: 80px;
+        height: 100px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .countdown-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      .countdown-item h2 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        color: #ffcc00;
+      }
+
+      .countdown-item p {
+        font-size: 2rem;
+        font-weight: bold;
+        color: white;
+      }
+
+      /* بخش اطلاعات تماس */
+      .contact-info {
+        background-color: rgba(0, 0, 0, 0.75);
+        padding: 15px 20px;
+        border-radius: 10px;
+        max-width: 500px;
+        width: 85%;
+        line-height: 1.6;
+      }
+
+      .contact-info p {
+        margin: 5px 0;
+        font-size: 1rem;
+      }
+
+      /* آیکون‌های اجتماعی */
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.75);
+        padding: 15px 20px;
+        border-radius: 10px;
+        max-width: 500px;
+        width: 85%;
+      }
+
+      .social-icons a {
+        margin: 0 12px;
         transition: transform 0.3s;
       }
-      .countdown-item:hover {
-        transform: scale(1.05); /* بزرگ شدن باکس به هنگام هاور */
+
+      .social-icons a:hover {
+        transform: scale(1.1);
       }
-      .countdown-item h2 {
-        font-size: 24px;
-        margin-bottom: 5px;
-        color: #ffcc00; /* رنگ زیبا برای عناوین */
-      }
-      .countdown-item p {
-        font-size: 36px;
-        color: white; /* رنگ متن */
-      }
-      .contact-info,
-      .social-icons {
-        background-color: rgba(0, 0, 0, 0.7); /* پس‌زمینه نیمه‌شفاف */
-        padding: 20px;
-        border-radius: 10px;
-        margin: 10px 0;
-        width: 80%; /* عرض باکس */
-      }
+
       .social-icons img {
-        width: 30px;
-        margin: 0 10px;
+        width: 35px;
+        height: 35px;
+        filter: brightness(0) invert(1);
+        transition: filter 0.3s;
       }
+
+      .social-icons a:hover img {
+        filter: brightness(0) invert(0.8) sepia(1) saturate(5) hue-rotate(0deg);
+      }
+
+      /* فوتر */
       footer {
-        position: absolute;
-        bottom: 10px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        height: 100;
         text-align: center;
-        font-size: 14px;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        padding: 10px 15px;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10;
+        backdrop-filter: blur(5px);
+      }
+
+      a {
+        text-decoration: none;
+        color: #ffcc00;
+        transition: color 0.3s;
+      }
+
+      a:hover {
         color: white;
+      }
+
+      /* رسپانسیو برای موبایل */
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+          height: 100vh;
+          justify-content: center;
+        }
+
+        .content-wrapper {
+          gap: 12px;
+        }
+
+        .header,
+        .countdown,
+        .contact-info,
+        .social-icons {
+          width: 95%;
+          padding: 15px;
+        }
+
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        h4 {
+          font-size: 1rem;
+        }
+
+        .countdown {
+          padding: 15px 10px;
+        }
+
+        .countdown-item {
+          width: 65px;
+          height: 85px;
+          margin: 0 6px;
+          padding: 12px 8px;
+        }
+
+        .countdown-item h2 {
+          font-size: 0.9rem;
+        }
+
+        .countdown-item p {
+          font-size: 1.6rem;
+        }
+
+        .social-icons img {
+          width: 30px;
+          height: 30px;
+        }
+
+        footer {
+          font-size: 0.8rem;
+          padding: 8px 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 10px;
+        }
+
+        .content-wrapper {
+          gap: 10px;
+        }
+
+        .countdown-item {
+          width: 55px;
+          height: 75px;
+          margin: 0 4px;
+          padding: 10px 6px;
+        }
+
+        .countdown-item p {
+          font-size: 1.4rem;
+        }
+
+        .social-icons a {
+          margin: 0 8px;
+        }
+
+        footer {
+          font-size: 0.7rem;
+          padding: 6px 10px;
+        }
+      }
+
+      /* برای صفحات با ارتفاع کم */
+      @media (max-height: 700px) {
+        .container {
+          justify-content: flex-start;
+          padding-top: 20px;
+          overflow-y: auto; /* فقط در صورت نیاز اسکرول شود */
+        }
+
+        .content-wrapper {
+          gap: 10px;
+        }
+
+        .header,
+        .countdown,
+        .contact-info,
+        .social-icons {
+          padding: 12px 15px;
+        }
+
+        h1 {
+          font-size: 1.6rem;
+        }
+
+        h4 {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* برای صفحات با ارتفاع خیلی کم */
+      @media (max-height: 500px) {
+        .container {
+          padding-top: 10px;
+        }
+
+        .header,
+        .countdown,
+        .contact-info,
+        .social-icons {
+          padding: 8px 12px;
+        }
+
+        .countdown-item {
+          width: 50px;
+          height: 65px;
+          padding: 8px 5px;
+        }
+
+        .countdown-item p {
+          font-size: 1.2rem;
+        }
       }
     </style>
   </head>
   <body>
+    <!-- بخش پس‌زمینه هوشمند -->
     <div class="background">
-      <video autoplay muted loop playsinline>
-  <source src="/img/video-bg.mp4" type="video/mp4" />
-  مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-      </video>
-    </div>
-    <div class="container">
-      <div class="header">
-      <h1>Qeshm Number</h1>
-        <br />
-        <br />
-        <h4>👋🙂  درحال زیباسازی وب‌سایت هستیم</h4>
-      </div>
-      <div class="countdown" id="countdown">
-        <div class="countdown-item">
-          <h2>روز</h2>
-          <p id="days">0</p>
-        </div>
-        <div class="countdown-item">
-          <h2>ساعت</h2>
-          <p id="hours">0</p>
-        </div>
-        <div class="countdown-item">
-          <h2>دقیقه</h2>
-          <p id="minutes">0</p>
-        </div>
-        <div class="countdown-item">
-          <h2>ثانیه</h2>
-          <p id="seconds">0</p>
-        </div>
-      </div>
-      <div class="contact-info">
-        <p>Tyazdaniit@gmail.com : ایمیل</p>
-        <br />
-        <p>تماس : 09150064036</p>
-      </div>
-
-      <div class="social-icons">
-        <a href="mailto:tyazdaniit@gmail.com"
-          ><img
-            src="https://img.icons8.com/?size=100&id=X0mEIh0RyDdL&format=png&color=000000"
-            alt="ایمیل"
-        /></a>
-        <a href="https://wa.me/+989150064036"
-          ><img
-            src="https://img.icons8.com/?size=100&id=bbCdIvHZ3OjJ&format=png&color=000000"
-        /></a>
-      </div>
-    </div>
-    <footer class="background-footer color="black"">
-      &copy; QeshmNumber - Design
-      <a href="https://tahayazdani.ir" class="no-underline hover:underline"
-        >TahaYazdani</a
+      <video
+        class="background-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        id="bgVideo"
       >
+        <source src="./img/video-bg.mp4" type="video/mp4" />
+        مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+      </video>
+      <img
+        class="background-image"
+        src="./img/back.jpg"
+        alt="پس‌زمینه"
+        id="bgImage"
+      />
+    </div>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="header">
+          <h1>Qeshm Number</h1>
+          <h4>👋🙂 در حال زیباسازی وب‌سایت هستیم</h4>
+        </div>
+
+        <div class="countdown" id="countdown">
+          <div class="countdown-item">
+            <h2>روز</h2>
+            <p id="days">0</p>
+          </div>
+          <div class="countdown-item">
+            <h2>ساعت</h2>
+            <p id="hours">0</p>
+          </div>
+          <div class="countdown-item">
+            <h2>دقیقه</h2>
+            <p id="minutes">0</p>
+          </div>
+          <div class="countdown-item">
+            <h2>ثانیه</h2>
+            <p id="seconds">0</p>
+          </div>
+        </div>
+
+        <div class="contact-info">
+          <p>ایمیل: Tyazdaniit@gmail.com</p>
+          <p>تماس: 09150064036</p>
+        </div>
+
+        <div class="social-icons">
+          <a href="mailto:tyazdaniit@gmail.com" aria-label="ارسال ایمیل">
+            <img
+              src="https://img.icons8.com/ios-filled/50/ffffff/email.png"
+              alt="ایمیل"
+            />
+          </a>
+          <a href="https://wa.me/+989150064036" aria-label="واتس‌اپ">
+            <img
+              src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png"
+              alt="واتس‌اپ"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      &copy; QeshmNumber - Design
+      <a href="https://tahayazdani.ir">TahaYazdani</a>
     </footer>
 
     <script>
-      // شمارنده معکوس
-      function updateCountdown() {
-        const targetDate = new Date("2025-09-01T00:00:00").getTime();
-        const now = new Date().getTime();
-        const distance = targetDate - now;
+      // تشخیص پشتیبانی از ویدیو و تنظیم خودکار
+      document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("bgVideo");
+        const image = document.getElementById("bgImage");
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // بررسی پشتیبانی از ویدیو
+        function checkVideoSupport() {
+          video.onerror = function () {
+            video.style.display = "none";
+            image.style.display = "block";
+          };
 
-        document.getElementById("days").innerText = days;
-        document.getElementById("hours").innerText = hours;
-        document.getElementById("minutes").innerText = minutes;
-        document.getElementById("seconds").innerText = seconds;
+          video.addEventListener("canplaythrough", function () {
+            image.style.display = "none";
+          });
 
-        if (distance < 0) {
-          clearInterval(interval);
-          document.getElementById("countdown").innerHTML =
-            "<h2>زمان تمام شد</h2>";
+          video.addEventListener("error", function () {
+            video.style.display = "none";
+            image.style.display = "block";
+          });
+
+          if (video.canPlayType && !video.canPlayType("video/mp4")) {
+            video.style.display = "none";
+            image.style.display = "block";
+          }
         }
-      }
 
-      const interval = setInterval(updateCountdown, 1000);
+        checkVideoSupport();
+
+        // شمارنده معکوس
+        function updateCountdown() {
+          const targetDate = new Date("2026-02-01T00:00:00").getTime();
+          const now = new Date().getTime();
+          const distance = targetDate - now;
+
+          if (distance < 0) {
+            clearInterval(interval);
+            document.getElementById("countdown").innerHTML =
+              '<div class="countdown-item" style="width: 100%; height: auto; padding: 20px;"><h2>آماده شدیم!</h2></div>';
+            return;
+          }
+
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          document.getElementById("days").innerText = days;
+          document.getElementById("hours").innerText = hours
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("minutes").innerText = minutes
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("seconds").innerText = seconds
+            .toString()
+            .padStart(2, "0");
+        }
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+      });
     </script>
   </body>
 </html>
